@@ -6,20 +6,20 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: c396416939bc4459c71f15c0279b72c9eb1f92fe022afe7fa74ed3adeef76e3b
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.7
+    - python {{ python_min }}
     - pip
   run:
-    - python >=3.7
+    - python >={{ python_min }}
     - sqlalchemy >=1.0.0
 
 test:
@@ -28,6 +28,7 @@ test:
   requires:
     - pip
     - sqlalchemy >=1.0.0
+    - python {{ python_min }}
   commands:
     - pip check
 
